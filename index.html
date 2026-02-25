@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lección 5 – El Triángulo Rectángulo | Escolaris</title>
+    <meta name="description"
+        content="Guía didáctica interactiva sobre el triángulo rectángulo para Segundo Básico - Colegio Escolaris">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --naranja: #db6015;
+            --amarillo: #f7be00;
+            --azul: #244b5a;
+            --rojo: #993921;
+            --fondo: #f0f8ff;
+            --blanco: #fff
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--fondo);
+            color: var(--azul);
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw
+        }
+
+        .slide {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100vw;
+            height: 100vh;
+            padding: 28px 70px;
+            overflow-y: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: fadeIn .4s ease
+        }
+
+        .slide.active {
+            display: flex
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .nav-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            background: var(--naranja);
+            color: #fff;
+            border: none;
+            font-size: 2.2rem;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, .2);
+            transition: all .3s
+        }
+
+        .nav-arrow:hover {
+            background: var(--rojo);
+            transform: translateY(-50%) scale(1.12)
+        }
+
+        .nav-arrow.left {
+            left: 12px
+        }
+
+        .nav-arrow.right {
+            right: 12px
+        }
+
+        .nav-arrow:disabled {
+            opacity: .3;
+            cursor: default;
+            transform: translateY(-50%)
+        }
+
+        .hbar {
+            width: 100%;
+            text-align: center;
+            padding: 6px 0;
+            margin-bottom: 8px
+        }
+
+        .hbar .school {
+            font-size: .9rem;
+            font-weight: 700;
+            color: var(--naranja);
+            letter-spacing: 3px;
+            text-transform: uppercase
+        }
+
+        .stitle {
+            font-size: 1.65rem;
+            font-weight: 700;
+            color: var(--azul);
+            margin-bottom: 10px;
+            text-align: center
+        }
+
+        .ssub {
+            font-size: 1.05rem;
+            color: var(--rojo);
+            margin-bottom: 8px;
+            text-align: center;
+            font-weight: 600
+        }
+
+        .card {
+            background: var(--blanco);
+            border-radius: 16px;
+            padding: 20px 26px;
+            box-shadow: 0 4px 20px rgba(36, 75, 90, .1);
+            margin: 6px 0;
+            width: 100%;
+            max-width: 720px;
+            border-left: 5px solid var(--naranja)
+        }
+
+        .card.bl {
+            border-left-color: var(--azul)
+        }
+
+        .card.gd {
+            border-left-color: var(--amarillo)
+        }
+
+        .card.rd {
+            border-left-color: var(--rojo)
+        }
+
+        .card h3 {
+            font-size: 1.05rem;
+            color: var(--azul);
+            margin-bottom: 6px
+        }
+
+        .card p,
+        .card li {
+            font-size: .97rem;
+            line-height: 1.6;
+            color: #333
+        }
+
+        .fbox {
+            background: linear-gradient(135deg, var(--azul), #1a3a47);
+            color: #fff;
+            border-radius: 14px;
+            padding: 18px 28px;
+            text-align: center;
+            margin: 10px auto;
+            max-width: 480px;
+            box-shadow: 0 6px 25px rgba(36, 75, 90, .3)
+        }
+
+        .fbox .fm {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin: 6px 0
+        }
+
+        .fbox .fd {
+            font-size: .9rem;
+            opacity: .9;
+            margin-top: 4px
+        }
+
+        .sbox {
+            background: var(--blanco);
+            border-radius: 12px;
+            padding: 12px 18px;
+            margin: 5px 0;
+            border-left: 4px solid var(--amarillo);
+            max-width: 680px;
+            width: 100%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .06)
+        }
+
+        .sbox .sn {
+            display: inline-block;
+            background: var(--naranja);
+            color: #fff;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            text-align: center;
+            line-height: 26px;
+            font-weight: 700;
+            font-size: .85rem;
+            margin-right: 8px
+        }
+
+        .sbox .sr {
+            font-weight: 700;
+            color: var(--naranja)
+        }
+
+        .rhl {
+            background: linear-gradient(135deg, var(--naranja), var(--rojo));
+            color: #fff;
+            border-radius: 12px;
+            padding: 12px 22px;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin: 8px auto;
+            max-width: 380px;
+            box-shadow: 0 4px 15px rgba(219, 96, 21, .3)
+        }
+
+        .svgc {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 8px 0
+        }
+
+        svg text {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+        }
+
+        .kw {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--naranja), var(--rojo));
+            color: #fff;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: .9rem;
+            margin: 3px
+        }
+
+        .it {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 7px 0
+        }
+
+        .it .ic {
+            font-size: 1.4rem;
+            flex-shrink: 0
+        }
+
+        .it .tx {
+            font-size: .97rem;
+            color: #333;
+            line-height: 1.6
+        }
+
+        .qo {
+            display: block;
+            width: 100%;
+            max-width: 540px;
+            padding: 11px 18px;
+            margin: 5px auto;
+            background: var(--blanco);
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: .97rem;
+            cursor: pointer;
+            transition: all .25s;
+            text-align: left;
+            color: var(--azul);
+            font-weight: 500
+        }
+
+        .qo:hover {
+            border-color: var(--naranja);
+            background: #fff5ed;
+            transform: translateX(4px)
+        }
+
+        .qo.correct {
+            border-color: #28a745;
+            background: #d4edda;
+            color: #155724;
+            pointer-events: none
+        }
+
+        .qo.incorrect {
+            border-color: #dc3545;
+            background: #f8d7da;
+            color: #721c24
+        }
+
+        .fb {
+            padding: 10px 16px;
+            border-radius: 10px;
+            margin: 6px auto;
+            max-width: 540px;
+            font-size: .9rem;
+            display: none;
+            text-align: center;
+            font-weight: 500
+        }
+
+        .fb.show {
+            display: block;
+            animation: fadeIn .3s
+        }
+
+        .fb.ok {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #28a745
+        }
+
+        .fb.no {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #dc3545
+        }
+
+        .rbtn {
+            display: none;
+            margin: 6px auto;
+            padding: 7px 20px;
+            background: var(--naranja);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: .9rem;
+            font-weight: 600;
+            transition: all .3s
+        }
+
+        .rbtn:hover {
+            background: var(--rojo)
+        }
+
+        .rbtn.show {
+            display: block
+        }
+
+        .dc {
+            background: var(--blanco);
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            padding: 14px 20px;
+            margin: 5px auto;
+            max-width: 480px;
+            cursor: pointer;
+            transition: all .3s;
+            text-align: center;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--azul)
+        }
+
+        .dc:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, .12);
+            border-color: var(--naranja)
+        }
+
+        .dc.right {
+            border-color: #28a745;
+            background: #d4edda;
+            pointer-events: none
+        }
+
+        .dc.wrong {
+            border-color: #dc3545;
+            background: #f8d7da
+        }
+
+        .rfbox {
+            background: var(--blanco);
+            border-radius: 12px;
+            padding: 14px 20px;
+            margin: 6px auto;
+            max-width: 580px;
+            border: 2px dashed var(--amarillo)
+        }
+
+        .rfbox textarea {
+            width: 100%;
+            height: 55px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 8px;
+            font-family: inherit;
+            font-size: .9rem;
+            resize: none;
+            margin-top: 5px
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--amarillo), var(--naranja));
+            padding: 10px 26px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+            box-shadow: 0 4px 18px rgba(247, 190, 0, .4);
+            margin: 8px
+        }
+
+        .sc {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(36, 75, 90, .85);
+            color: #fff;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: .75rem;
+            z-index: 100;
+            letter-spacing: 1px
+        }
+
+        .ebtn {
+            padding: 9px 22px;
+            background: var(--naranja);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: .95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .3s;
+            margin: 4px
+        }
+
+        .ebtn:hover {
+            background: var(--rojo);
+            transform: scale(1.05)
+        }
+
+        .ebtn.active {
+            background: var(--azul)
+        }
+    </style>
+</head>
+
+<body>
+    <button class="nav-arrow left" id="prevBtn" onclick="changeSlide(-1)">&#9664;</button>
+    <button class="nav-arrow right" id="nextBtn" onclick="changeSlide(1)">&#9654;</button>
+    <div class="sc" id="slideCounter">1 / 17</div>
+
+    <!-- S1 PORTADA -->
+    <div class="slide active" id="s1">
+        <div class="hbar">
+            <div class="school">✦ ESCOLARIS ✦</div>
+        </div>
+        <div style="margin:6px 0"><span style="font-size:.92rem;color:var(--rojo);font-weight:600">Matemática · Segundo
+                Básico · Lección 5</span></div>
+        <h1 style="font-size:2.1rem;color:var(--azul);font-weight:800;text-align:center;margin:6px 0">El Triángulo
+            Rectángulo</h1>
+        <div class="svgc"><svg width="320" height="230" viewBox="0 0 320 230">
+                <defs>
+                    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#db6015;stop-opacity:.12" />
+                        <stop offset="100%" style="stop-color:#f7be00;stop-opacity:.12" />
+                    </linearGradient>
+                </defs>
+                <polygon points="40,195 250,195 250,40" fill="url(#g1)" stroke="var(--azul)" stroke-width="3"
+                    stroke-linejoin="round" />
+                <rect x="234" y="179" width="16" height="16" fill="none" stroke="var(--naranja)" stroke-width="2" />
+                <text x="120" y="218" font-size="13" fill="var(--azul)" font-weight="600">cateto a</text>
+                <text x="258" y="125" font-size="13" fill="var(--azul)" font-weight="600">cateto b</text>
+                <text x="70" y="105" font-size="14" fill="var(--naranja)" font-weight="700">hipotenusa c</text>
+                <text x="210" y="192" font-size="11" fill="var(--rojo)" font-weight="700">90°</text>
+            </svg></div>
+        <p style="font-size:1.1rem;color:var(--naranja);font-weight:600;text-align:center;margin-top:4px">🔺 ¡Descubre
+            cómo
+            medir el mundo con los triángulos!</p>
+        <p style="font-size:.85rem;color:#999;margin-top:8px">Usa las flechas ◀ ▶ para navegar</p>
+    </div>
+
+    <!-- S2 OBJETIVOS -->
+    <div class="slide" id="s2">
+        <div class="hbar">
+            <div class="school">ESCOLARIS</div>
+        </div>
+        <h2 class="stitle">🎯 Objetivos de Aprendizaje</h2>
+        <div class="card" style="max-width:620px">
+            <ul style="list-style:none;padding:0">
+                <li style="padding:8px 0;border-bottom:1px solid #eee">
+                    <div class="it"><span class="ic">📐</span><span class="tx"><strong>Identificar</strong> las partes
+                            de un
+                            triángulo rectángulo: hipotenusa, catetos y ángulo recto.</span></div>
+                </li>
+                <li style="padding:8px 0;border-bottom:1px solid #eee">
+                    <div class="it"><span class="ic">🧮</span><span class="tx"><strong>Aplicar</strong> el Teorema de
+                            Pitágoras
+                            para calcular la hipotenusa.</span></div>
+                </li>
+                <li style="padding:8px 0">
+                    <div class="it"><span class="ic">🔍</span><span class="tx"><strong>Calcular</strong> un cateto
+                            cuando se
+                            conocen los otros dos lados.</span></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- S3 CONOCIMIENTOS PREVIOS -->
+    <div class="slide" id="s3">
+        <div class="hbar">
+            <div class="school">ESCOLARIS</div>
+        </div>
+        <h2 class="stitle">🧠 ¿Qué recuerdas?</h2>
+        <p class="ssub">Activación de conocimientos previos</p>
+        <div class="card" style="max-width:600px">
+            <div class="it"><span class="ic">🤔</span><span class="tx">¿Qué es un <strong>ángulo recto</strong>?
+                    ¿Cuántos
+                    grados mide?</span></div>
+        </div>
+        <div class="card bl" style="max-width:600px">
+            <div class="it"><span class="ic">📏</span><span class="tx">¿Cómo identificas un ángulo de
+                    <strong>90°</strong> en
+                    una figura?</span></div>
+        </div>
+        <div class="card gd" style="max-width:600px">
+            <div class="it"><span class="ic">🔷</span><span class="tx">¿Qué <strong>figuras geométricas</strong> conoces
+                    que
+                    tengan ángulos rectos?</span></div>
+        </div>
+        <div class="svgc"><svg width="130" height="130" viewBox="0 0 130 130">
+                <line x1="15" y1="110" x2="115" y2="110" stroke="var(--azul)" stroke-width="3" />
+                <line x1="15" y1="110" x2="15" y2="15" stroke="var(--azul)" stroke-width="3" />
+                <rect x="15" y="95" width="15" height="15" fill="none" stroke="var(--naranja)" stroke-width="2" />
+                <text x="40" y="90" font-size="15" fill="var(--naranja)" font-weight="700">90°</text>
+            </svg></div>
+    </div>
+
+    <!-- S4 PALABRAS CLAVE -->
+    <div class="slide" id="s4">
+        <div class="hbar">
+            <div class="school">ESCOLARIS</div>
+        </div>
+        <h2 class="stitle">📖 Palabras Clave</h2>
+        <div class="card" style="max-width:640px">
+            <div style="margin:6px 0"><span class="kw">Triángulo rectángulo</span>
+                <p style="margin:3px 0 10px 14px;font-size:.92rem;color:#555">Triángulo que tiene un ángulo de 90°.</p>
+            </div>
+            <div style="margin:6px 0"><span class="kw">Hipotenusa</span>
+                <p style="margin:3px 0 10px 14px;font-size:.92rem;color:#555">El lado más largo; está frente al ángulo
+                    recto.
+                </p>
+            </div>
+            <div style="margin:6px 0"><span class="kw">Catetos</span>
+                <p style="margin:3px 0 10px 14px;font-size:.92rem;color:#555">Los dos lados que forman el ángulo de 90°.
+                </p>
+            </div>
+            <div style="margin:6px 0"><span class="kw">Teorema de Pitágoras</span>
+                <p style="margin:3px 0 0 14px;font-size:.92rem;color:#555">Fórmula: a² + b² = c²</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- S5 QUÉ ES -->
+    <div class="slide" id="s5">
+        <div class="hbar">
+            <div class="school">ESCOLARIS</div>
+        </div>
+        <h2 class="stitle">📐 ¿Qué es un triángulo rectángulo?</h2>
+        <div class="card" style="max-width:650px">
+            <p>Es un triángulo que tiene <strong>un ángulo de 90°</strong> (ángulo recto). Se reconoce por el pequeño
+                cuadrado
+                en una de sus esquinas.</p>
+        </div>
+        <div class="svgc"><svg width="360" height="250" viewBox="0 0 360 250">
+                <polygon points="40,210 270,210 270,40" fill="rgba(219,96,21,.07)" stroke="var(--azul)" stroke-width="3"
+                    stroke-linejoin="round" />
+                <rect x="254" y="194" width="16" height="16" fill="none" stroke="var(--rojo)" stroke-width="2.5" />
+                <text x="25" y="228" font-size="15" fill="var(--azul)" font-weight="700">A</text>
+                <text x="278" y="228" font-size="15" fill="var(--azul)" font-weight="700">B</text>
+                <text x="278" y="34" font-size="15" fill="var(--azul)" font-weight="700">C</text>
+                <text x="130" y="240" font-size="13" fill="var(--azul)" font-weight="600">cateto a</text>
+                <text x="280" y="132" font-size="13" fill="var(--azul)" font-weight="600">cateto b</text>
+                <text x="70" y="110" font-size="14" fill="var(--naranja)" font-weight="700">hipotenusa (c)</text>
+                <text x="228" y="208" font-size="11" fill="var(--rojo)" font-weight="700">90°</text>
+            </svg></div>
+        <div class="card bl" style="max-width:650px">
+            <p>📌 La <strong>hipotenusa</strong> siempre está <strong>opuesta al ángulo recto</strong> y es el lado más
+                largo.
+                Los otros dos lados son los <strong>catetos</strong>.</p>
+        </div>
+    </div>
+
+    <!-- S6 PARTES -->
+    <div class="slide" id="s6">
+        <div class="hbar">
+            <div class="school">ESCOLARIS</div>
+        </div>
+        <h2 class="stitle">🔍 Identificando sus partes</h2>
+        <div class="svgc"><svg width="360" height="250" viewBox="0 0 360 250">
+                <line x1="40" y1="200" x2="260" y2="200" stroke="var(--azul)" stroke-width="4" />
+                <line x1="260" y1="200" x2="260" y2="50" stroke="var(--amarillo)" stroke-width="4" />
+                <line x1="40" y1="200" x2="260" y2="50" stroke="var(--naranja)" stroke-width="4" />
+                <rect x="244" y="184" width="16" height="16" fill="none" stroke="var(--rojo)" stroke-width="2.5" />
+                <text x="125" y="226" font-size="14" fill="var(--azul)" font-weight="700">a = 6 cm</text>
+                <text x="270" y="132" font-size="14" fill="#b8860b" font-weight="700">b = 8 cm</text>
+                <text x="90" y="112" font-size="14" fill="var(--naranja)" font-weight="700">c = 10 cm</text>
+                <text x="218" y="198" font-size="10" fill="var(--rojo)" font-weight="700">90°</text>
+            </svg></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;max-width:750px">
+            <div class="card" style="flex:1;min-width:220px;border-left-color:var(--azul)">
+                <h3 style="color:var(--azul)">Cateto a</h3>
+                <p style="white-space:nowrap">Lado horizontal = 6 cm</p>
+            </div>
+            <div class="card" style="flex:1;min-width:220px;border-left-color:var(--amarillo)">
+                <h3 style="color:#b8860b">Cateto b</h3>
+                <p style="white-space:nowrap">Lado vertical = 8 cm</p>
+            </div>
+            <div class="card" style="flex:1;min-width:220px;border-left-color:var(--naranja)">
+                <h3 style="color:var(--naranja)">Hipotenusa c</h3>
+                <p style="white-space:nowrap">Lado más largo = 10 cm</p>
+            </div>
+        </div>
+        <div class="card gd" style="max-width:680px;margin-top:4px">
+            <p>💡 La hipotenusa <strong>siempre es el lado opuesto al ángulo recto</strong> y siempre es el más largo.
+            </p>
+        </div>
+    </div>
+
+    <!-- S7 TEOREMA -->
+    <div class="slide" id="s7">
+        <div class="hbar">
+            <div class="school">ESCOLARIS</div>
+        </div>
+        <h2 class="stitle">📏 El Teorema de Pitágoras</h2>
+        <div class="fbox">
+            <div class="fm">a² + b² = c²</div>
+            <div class="fd">a y b = catetos &nbsp;|&nbsp; c = hipotenusa</div>
+        </div>
+        <div class="svgc"><svg width="340" height="270" viewBox="0 0 340 270">
+                <polygon points="60,220 220,220 220,80" fill="rgba(36,75,90,.05)" stroke="var(--azul)"
+                    stroke-width="2.5" stroke-linejoin="round" />
+                <rect x="204" y="204" width="16" height="16" fill="none" stroke="var(--rojo)" stroke-width="2" />
+                <rect x="60" y="224" width="160" height="34" rx="3" fill="rgba(36,75,90,.08)" stroke="var(--azul)"
+                    stroke-width="1.5" />
+                <text x="115" y="247" font-size="12" fill="var(--azul)" font-weight="700">a² = 9</text>
+                <rect x="224" y="80" width="34" height="140" rx="3" fill="rgba(247,190,0,.12)" stroke="var(--amarillo)"
+                    stroke-width="1.5" />
+                <text x="228" y="158" font-size="12" fill="#b8860b" font-weight="700" transform="rotate(90,240,155)">b²
+                    =
+                    16</text>
+                <text x="120" y="216" font-size="12" fill="var(--azul)" font-weight="600">a = 3</text>
+                <text x="175" y="165" font-size="12" fill="#b8860b" font-weight="600">b = 4</text>
+                <text x="80" y="143" font-size="13" fill="var(--naranja)" font-weight="700">c = 5</text>
+                <text x="78" y="160" font-size="11" fill="var(--naranja)" font-weight="600">c² = 25</text>
+                <text x="184" y="218" font-size="10" fill="var(--rojo)" font-weight="700">90°</text>
+            </svg></div>
+        <div class="card" style="max-width:580px">
+            <p>Los cuadrados sobre cada lado cumplen: <strong>a² + b² = c²</strong></p>
+            <p style="margin-top:6px;font-weight:600;color:var(--naranja)">3² + 4² = 9 + 16 = 25 = 5² ✓</p>
+        </div>
+    </div>
+
+    <!-- S8 CALCULAR HIPOTENUSA -->
+    <div class="slide" id="s8">
+        <div class="hbar">
+            <div class="school">ESCOLARIS</div>
+        </div>
+        <h2 class="stitle">🧮 Cómo calcular la hipotenusa</h2>
+        <div class="svgc"><svg width="220" height="180" viewBox="0 0 220 180">
+                <polygon points="25,155 180,155 180,30" fill="rgba(219,96,21,.07)" stroke="var(--azul)"
+                    stroke-width="2.5" stroke-linejoin="round" />
+                <rect x="164" y="139" width="16" height="16" fill="none" stroke="var(--rojo)" stroke-width="2" />
+                <text x="82" y="175" font-size="13" fill="var(--azul)" font-weight="700">a = 3</text>
+                <text x="188" y="100" font-size="13" fill="var(--azul)" font-weight="700">b = 4</text>
+                <text x="65" y="82" font-size="14" fill="var(--naranja)" font-weight="700">c = ?</text>
+            </svg></div>
+        <div class="sbox"><span class="sn">1</span>Elevamos al cuadrado: 3² = <span class="sr">9</span> y 4² = <span
+                class="sr">16</span></div>
+        <div class="sbox"><span class="sn">2</span>Sumamos: 9 + 16 = <span class="sr">25</span></div>
+        <div class="sbox"><span class="sn">3</span>Raíz cuadrada: √25 = <span class="sr">5</span></div>
+        <div class="rhl">La hipotenusa mide c = 5</div>
+    </div>
+
+    <!-- S9 CALCULAR CATETO -->
+    <div class="slide" id="s9">
+        <div class="hbar">
+            <div class="school">ESCOLARIS</div>
+        </div>
+        <h2 class="stitle">🔎 Cómo calcular un cateto</h2>
+        <div class="svgc"><svg width="220" height="180" viewBox="0 0 220 180">
+                <polygon points="25,155 180,155 180,30" fill="rgba(36,75,90,.06)" stroke="var(--azul)"
+                    stroke-width="2.5" stroke-linejoin="round" />
+                <rect x="164" y="139" width="16" height="16" fill="none" stroke="var(--rojo)" stroke-width="2" />
+                <text x="82" y="175" font-size="13" fill="var(--azul)" font-weight="700">a = 6</text>
+                <text x="188" y="100" font-size="13" fill="var(--naranja)" font-weight="700">b = ?</text>
+                <text x="60" y="82" font-size="14" fill="var(--rojo)" font-weight="700">c = 10</text>
+            </svg></div>
+        <div class="fbox" style="max-width:380px">
+            <div class="fm" style="font-size:1.4rem">b² = c² − a²</div>
+        </div>
+        <div class="sbox"><span class="sn">1</span>Elevamos al cuadrado: 10² = <span class="sr">100</span> y 6² = <span
+                class="sr">36</span></div>
+        <div class="sbox"><span class="sn">2</span>Restamos: 100 − 36 = <span class="sr">64</span></div>
+        <div class="sbox"><span class="sn">3</span>Raíz cuadrada: √64 = <span class="sr">8</span></div>
+        <div class="rhl">El cateto b mide 8</div>
+    </div>
+
+    <!-- S10 APLICACIÓN GUIADA -->
+    <div class="slide" id="s10">
+        <div class="hbar">
+            <div class="school">ESCOLARIS</div>
+        </div>
+        <h2 class="stitle">🏠 Aplicación guiada</h2>
+        <p class="ssub">Una escalera de 13 m se apoya en una pared. La base está a 5 m de la pared. ¿A qué altura llega?
+        </p>
+        <div class="svgc"><svg width="260" height="240" viewBox="0 0 260 240">
+                <rect x="180" y="20" width="12" height="200" fill="rgba(36,75,90,.1)" stroke="var(--azul)"
+                    stroke-width="2" />
+                <text x="200" y="130" font-size="11" fill="#888">pared</text>
+                <line x1="180" y1="220" x2="60" y2="220" stroke="var(--azul)" stroke-width="2.5" />
+                <text x="105" y="238" font-size="13" fill="var(--azul)" font-weight="700">5 m</text>
+                <line x1="60" y1="220" x2="180" y2="32" stroke="var(--naranja)" stroke-width="3" />
+                <text x="85" y="118" font-size="14" fill="var(--naranja)" font-weight="700">13 m</text>
+                <line x1="180" y1="220" x2="180" y2="32" stroke="var(--amarillo)" stroke-width="2.5"
+                    stroke-dasharray="6,3" />
+                <text x="138" y="130" font-size="13" fill="#b8860b" font-weight="700">h = ?</text>
+            </svg></div>
+        <div class="sbox"><span class="sn">1</span>h² = 13² − 5² = 169 − 25 = <span class="sr">144</span></div>
+        <div class="sbox"><span class="sn">2</span>h = √144 = <span class="sr">12 m</span></div>
+        <div class="rhl">🪜 La escalera llega a 12 m de altura</div>
+    </div>
+
+    <!-- S11 EXPLORACIÓN VISUAL -->
+    <div class="slide" id="s11">
+        <div class="hbar">
+            <div class="school">ESCOLARIS</div>
+        </div>
+        <h2 class="stitle">🔬 Exploración Visual</h2>
+        <p class="ssub">Observa cómo cambian los lados al modificar los catetos</p>
+        <div class="svgc"><svg id="exploreSvg" width="320" height="250" viewBox="0 0 320 250">
+                <polygon id="expTri" points="40,210 240,210 240,60" fill="rgba(219,96,21,.08)" stroke="var(--azul)"
+                    stroke-width="3" stroke-linejoin="round" />
+                <rect id="expRect" x="224" y="194" width="16" height="16" fill="none" stroke="var(--rojo)"
+                    stroke-width="2" />
+                <text id="expA" x="120" y="232" font-size="14" fill="var(--azul)" font-weight="700">a = 5</text>
+                <text id="expB" x="248" y="140" font-size="14" fill="#b8860b" font-weight="700">b = 5</text>
+                <text id="expC" x="100" y="125" font-size="14" fill="var(--naranja)" font-weight="700">c = 7.07</text>
+            </svg></div>
+        <div style="text-align:center;max-width:500px">
+            <label style="font-size:.95rem;color:var(--azul);font-weight:600">Cateto a: <span
+                    id="valA">5</span></label><br>
+            <input type="range" id="rangeA" min="2" max="10" value="5" style="width:80%;margin:4px 0"
+                oninput="updateExplore()">
+            <br><label style="font-size:.95rem;color:#b8860b;font-weight:600">Cateto b: <span
+                    id="valB">5</span></label><br>
+            <input type="range" id="rangeB" min="2" max="10" value="5" style="width:80%;margin:4px 0"
+                oninput="updateExplore()">
+        </div>
+        <div class="card" style="max-width:500px;text-align:center">
+            <p>📐 Mueve los controles y observa cómo cambia la hipotenusa al aumentar o reducir los catetos.</p>
+        </div>
+    </div>
+
+    <!-- S12 ACTIVIDAD COMPRENSIÓN -->
+    <div class="slide" id="s12">
+        <div class="hbar">
+            <div class="school">ESCOLARIS</div>
+        </div>
+        <h2 class="stitle">✏️ Actividad de Comprensión</h2>
+        <div class="qgroup">
+            <div class="card" style="max-width:560px;text-align:center">
+                <h3>Pregunta 1: ¿Cuál es la hipotenusa en un triángulo rectángulo?</h3>
+            </div>
+            <button class="qo" onclick="checkQ(this,'q1','incorrect','❌ No. Los catetos forman el ángulo recto.')">El
+                lado más
+                corto</button>
+            <button class="qo"
+                onclick="checkQ(this,'q1','correct','✅ ¡Correcto! La hipotenusa es el lado más largo.')">El
+                lado más largo, opuesto al ángulo de 90°</button>
+            <button class="qo" onclick="checkQ(this,'q1','incorrect','❌ El cateto no es la hipotenusa.')">Cualquiera de
+                los
+                catetos</button>
+            <div class="fb" id="q1-fb"></div>
+            <button class="rbtn" id="q1-retry" onclick="retryQ('q1')">🔄 Intentar de nuevo</button>
+        </div>
+        <div class="qgroup">
+            <div class="card bl" style="max-width:560px;text-align:center;margin-top:8px">
+                <h3>Pregunta 2: Si a=5 y b=12, ¿cuánto mide la hipotenusa?</h3>
+            </div>
+            <button class="qo" onclick="checkQ(this,'q2','incorrect','❌ 5²+12²=25+144=169, y √169=13.')">c = 17</button>
+            <button class="qo" onclick="checkQ(this,'q2','correct','✅ ¡Excelente! 5²+12²=169 → √169=13')">c =
+                13</button>
+            <button class="qo"
+                onclick="checkQ(this,'q2','incorrect','❌ Recuerda: suma los cuadrados y saca la raíz.')">c =
+                7</button>
+            <div class="fb" id="q2-fb"></div>
+            <button class="rbtn" id="q2-retry" onclick="retryQ('q2')">🔄 Intentar de nuevo</button>
+        </div>
+    </div>
+
+    <!-- S13 DETECTIVE -->
+    <div class="slide" id="s13">
+        <div class="hbar">
+            <div class="school">ESCOLARIS</div>
+        </div>
+        <h2 class="stitle">🕵️ Detective del Triángulo</h2>
+        <p class="ssub">¿Cuál conjunto de lados forma un triángulo rectángulo? ¡Haz clic para descubrirlo!</p>
+        <div class="dc" onclick="checkDet(this,false)">Lados: 2, 3, 4 &nbsp; <span id="d1-r"></span></div>
+        <div class="dc" onclick="checkDet(this,true)">Lados: 3, 4, 5 &nbsp; <span id="d2-r"></span></div>
+        <div class="dc" onclick="checkDet(this,false)">Lados: 4, 5, 7 &nbsp; <span id="d3-r"></span></div>
+        <div class="dc" onclick="checkDet(this,true)">Lados: 5, 12, 13 &nbsp; <span id="d4-r"></span></div>
+        <div class="dc" onclick="checkDet(this,false)">Lados: 6, 7, 10 &nbsp; <span id="d5-r"></span></div>
+        <div class="dc" onclick="checkDet(this,true)">Lados: 8, 15, 17 &nbsp; <span id="d6-r"></span></div>
+        <div class="fb ok show" style="margin-top:8px">💡 Recuerda: verifica si a² + b² = c² para cada conjunto.</div>
+        <button class="ebtn" onclick="resetDetective()" style="margin-top:6px">🔄 Reiniciar juego</button>
+    </div>
+
+    <!-- S14 APLICACIÓN PRÁCTICA -->
+    <div class="slide" id="s14">
+        <div class="hbar">
+            <div class="school">ESCOLARIS</div>
+        </div>
+        <h2 class="stitle">🌳 Aplicación Práctica</h2>
+        <p class="ssub">Un poste de 9 m proyecta una sombra de 12 m. ¿Cuánto mide la distancia desde la punta del poste
+            hasta el final de la sombra?</p>
+        <div class="svgc"><svg width="300" height="220" viewBox="0 0 300 220">
+                <line x1="60" y1="195" x2="60" y2="40" stroke="var(--azul)" stroke-width="3" />
+                <text x="25" y="120" font-size="13" fill="var(--azul)" font-weight="700">9 m</text>
+                <line x1="60" y1="195" x2="250" y2="195" stroke="var(--amarillo)" stroke-width="3" />
+                <text x="135" y="215" font-size="13" fill="#b8860b" font-weight="700">12 m</text>
+                <line x1="60" y1="40" x2="250" y2="195" stroke="var(--naranja)" stroke-width="3"
+                    stroke-dasharray="6,4" />
+                <text x="155" y="105" font-size="14" fill="var(--naranja)" font-weight="700">c = ?</text>
+                <rect x="60" y="179" width="16" height="16" fill="none" stroke="var(--rojo)" stroke-width="2" />
+            </svg></div>
+        <button class="qo" onclick="checkQ(this,'q3','incorrect','❌ c²=9²+12²=81+144=225 → c=15')">c = 21</button>
+        <button class="qo" onclick="checkQ(this,'q3','correct','✅ ¡Así es! 9²+12²=225 → √225=15 m')">c = 15</button>
+        <button class="qo" onclick="checkQ(this,'q3','incorrect','❌ Recuerda aplicar el Teorema de Pitágoras.')">c =
+            18</button>
+        <div class="fb" id="q3-fb"></div>
+        <button class="rbtn" id="q3-retry" onclick="retryQ('q3')">🔄 Intentar de nuevo</button>
+        <div class="rfbox" style="margin-top:8px"><strong>🤔 Reflexiona:</strong> ¿Dónde más podrías usar el Teorema de
+            Pitágoras en la vida real?<textarea placeholder="Escribe tu respuesta aquí..."></textarea></div>
+    </div>
+
+    <!-- S15 REPASO FINAL -->
+    <div class="slide" id="s15">
+        <div class="hbar">
+            <div class="school">ESCOLARIS</div>
+        </div>
+        <h2 class="stitle">📝 Repaso Final</h2>
+        <div class="qgroup">
+            <div class="card" style="max-width:560px;text-align:center">
+                <h3>1. ¿Cuántos grados tiene el ángulo recto?</h3>
+            </div>
+            <button class="qo"
+                onclick="checkQ(this,'r1','incorrect','❌ Un ángulo recto siempre mide 90°.')">45°</button>
+            <button class="qo" onclick="checkQ(this,'r1','correct','✅ ¡Correcto!')">90°</button>
+            <button class="qo" onclick="checkQ(this,'r1','incorrect','❌ 180° es un ángulo llano.')">180°</button>
+            <div class="fb" id="r1-fb"></div><button class="rbtn" id="r1-retry" onclick="retryQ('r1')">🔄
+                Intentar</button>
+        </div>
+        <div class="qgroup">
+            <div class="card bl" style="max-width:560px;text-align:center;margin-top:6px">
+                <h3>2. Si a=6 y b=8, ¿cuánto es c?</h3>
+            </div>
+            <button class="qo" onclick="checkQ(this,'r2','correct','✅ 6²+8²=36+64=100 → √100=10')">c = 10</button>
+            <button class="qo" onclick="checkQ(this,'r2','incorrect','❌ 6²+8²=100, √100=10')">c = 14</button>
+            <button class="qo" onclick="checkQ(this,'r2','incorrect','❌ Recuerda la fórmula: a²+b²=c²')">c = 12</button>
+            <div class="fb" id="r2-fb"></div><button class="rbtn" id="r2-retry" onclick="retryQ('r2')">🔄
+                Intentar</button>
+        </div>
+        <div class="qgroup">
+            <div class="card gd" style="max-width:560px;text-align:center;margin-top:6px">
+                <h3>3. Si c=13 y a=5, ¿cuánto es b?</h3>
+            </div>
+            <button class="qo" onclick="checkQ(this,'r3','incorrect','❌ b²=13²−5²=169−25=144 → b=12')">b = 8</button>
+            <button class="qo" onclick="checkQ(this,'r3','correct','✅ ¡Perfecto! 13²−5²=144 → √144=12')">b = 12</button>
+            <button class="qo" onclick="checkQ(this,'r3','incorrect','❌ Usa b²=c²−a²')">b = 18</button>
+            <div class="fb" id="r3-fb"></div><button class="rbtn" id="r3-retry" onclick="retryQ('r3')">🔄
+                Intentar</button>
+        </div>
+    </div>
+
+    <!-- S16 METACOGNICIÓN -->
+    <div class="slide" id="s16">
+        <div class="hbar">
+            <div class="school">ESCOLARIS</div>
+        </div>
+        <h2 class="stitle">💭 Reflexión sobre mi aprendizaje</h2>
+        <div class="rfbox">
+            <div class="it"><span class="ic">📚</span><span class="tx"><strong>¿Qué aprendí hoy?</strong></span></div>
+            <textarea style="height:80px" placeholder="Escribe aquí lo que aprendiste..."></textarea>
+        </div>
+        <div class="rfbox">
+            <div class="it"><span class="ic">😊</span><span class="tx"><strong>¿Qué fue lo más fácil?</strong></span>
+            </div>
+            <textarea style="height:80px" placeholder="Escribe aquí..."></textarea>
+        </div>
+        <div class="rfbox">
+            <div class="it"><span class="ic">💪</span><span class="tx"><strong>¿Qué necesito practicar
+                        más?</strong></span>
+            </div>
+            <textarea style="height:80px" placeholder="Escribe aquí..."></textarea>
+        </div>
+    </div>
+
+    <!-- S17 CIERRE -->
+    <div class="slide" id="s17">
+        <div class="hbar">
+            <div class="school">✦ ESCOLARIS ✦</div>
+        </div>
+        <h2 class="stitle" style="font-size:1.8rem;margin-top:30px">🌟 ¡Felicidades!</h2>
+        <p style="font-size:1.15rem;color:var(--azul);text-align:center;margin:10px 0;max-width:500px">Has completado la
+            <strong>Lección 5</strong> sobre el <strong>Triángulo Rectángulo</strong> y el <strong>Teorema de
+                Pitágoras</strong>.
+        </p>
+        <div class="badge">⭐ ¡Excelente trabajo!</div>
+        <div class="card" style="max-width:500px;text-align:center;margin-top:12px">
+            <p style="font-size:1.05rem">Ahora puedes:</p>
+            <ul style="list-style:none;padding:0;text-align:left;margin-top:8px">
+                <li style="padding:4px 0">✅ Identificar las partes de un triángulo rectángulo</li>
+                <li style="padding:4px 0">✅ Aplicar el Teorema de Pitágoras</li>
+                <li style="padding:4px 0">✅ Calcular hipotenusa y catetos</li>
+            </ul>
+        </div>
+        <p style="font-size:1.3rem;margin-top:16px">🔺📐🧮</p>
+        <p style="font-size:.9rem;color:#888;margin-top:10px">Matemática · Segundo Básico · Colegio Escolaris</p>
+    </div>
+
+    <script>
+        const totalSlides = 17;
+        let current = 1;
+
+        function changeSlide(d) {
+            const next = current + d;
+            if (next < 1 || next > totalSlides) return;
+            document.getElementById('s' + current).classList.remove('active');
+            current = next;
+            document.getElementById('s' + current).classList.add('active');
+            document.getElementById('slideCounter').textContent = current + ' / ' + totalSlides;
+            document.getElementById('prevBtn').disabled = current === 1;
+            document.getElementById('nextBtn').disabled = current === totalSlides;
+        }
+        document.getElementById('prevBtn').disabled = true;
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowRight') changeSlide(1);
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+        });
+
+        function checkQ(btn, qId, type, msg) {
+            const group = btn.closest('.qgroup') || btn.parentElement;
+            const siblings = group.querySelectorAll('.qo');
+            const fb = document.getElementById(qId + '-fb');
+            const retry = document.getElementById(qId + '-retry');
+            if (type === 'correct') {
+                btn.classList.add('correct');
+                fb.className = 'fb show ok';
+                fb.textContent = msg;
+                siblings.forEach(b => { b.style.pointerEvents = 'none'; });
+                if (retry) retry.classList.remove('show');
+            } else {
+                btn.classList.add('incorrect');
+                fb.className = 'fb show no';
+                fb.textContent = msg;
+                if (retry) retry.classList.add('show');
+                setTimeout(() => { btn.classList.remove('incorrect'); }, 1500);
+            }
+        }
+
+        function retryQ(qId) {
+            const fb = document.getElementById(qId + '-fb');
+            const group = fb.closest('.qgroup') || fb.closest('.slide');
+            const btns = group.querySelectorAll('.qo');
+            btns.forEach(b => { b.className = 'qo'; b.style.pointerEvents = 'auto'; });
+            fb.className = 'fb';
+            document.getElementById(qId + '-retry').classList.remove('show');
+        }
+
+        function checkDet(el, isRight) {
+            if (el.classList.contains('right') || el.classList.contains('wrong')) return;
+            if (isRight) {
+                el.classList.add('right');
+                el.querySelector('span').textContent = '✅ ¡Sí es rectángulo!';
+            } else {
+                el.classList.add('wrong');
+                el.querySelector('span').textContent = '❌ No es rectángulo';
+                setTimeout(() => { el.classList.remove('wrong'); el.querySelector('span').textContent = ''; }, 2000);
+            }
+        }
+
+        function resetDetective() {
+            document.querySelectorAll('#s13 .dc').forEach(c => {
+                c.className = 'dc'; c.querySelector('span').textContent = '';
+            });
+        }
+
+        function updateExplore() {
+            const a = parseInt(document.getElementById('rangeA').value);
+            const b = parseInt(document.getElementById('rangeB').value);
+            const c = Math.sqrt(a * a + b * b);
+            document.getElementById('valA').textContent = a;
+            document.getElementById('valB').textContent = b;
+            const maxA = 10, maxB = 10;
+            const x2 = 40 + ((a / maxA) * 200);
+            const y2 = 210 - ((b / maxB) * 150);
+            document.getElementById('expTri').setAttribute('points', '40,210 ' + x2 + ',210 ' + x2 + ',' + y2);
+            document.getElementById('expRect').setAttribute('x', x2 - 16);
+            document.getElementById('expRect').setAttribute('y', 194);
+            document.getElementById('expA').textContent = 'a = ' + a;
+            document.getElementById('expA').setAttribute('x', (40 + x2) / 2 - 15);
+            document.getElementById('expB').textContent = 'b = ' + b;
+            document.getElementById('expB').setAttribute('x', x2 + 8);
+            document.getElementById('expB').setAttribute('y', (210 + y2) / 2);
+            document.getElementById('expC').textContent = 'c = ' + c.toFixed(2);
+            document.getElementById('expC').setAttribute('x', (40 + x2) / 2 - 30);
+            document.getElementById('expC').setAttribute('y', (210 + y2) / 2 - 10);
+        }
+    </script>
+</body>
+
+</html>
